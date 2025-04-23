@@ -42,11 +42,11 @@ sns.countplot(x='Payment', hue='Customer type', data=df)
 plt.title('Payment Method by Customer Type')
 plt.tight_layout()
 plt.show()
-
 # 5 Correlation Heatmap
+df_corr = df.drop(columns=['gross margin percentage'])
 plt.figure(figsize=(10, 6))
-sns.heatmap(df.corr(numeric_only=True), annot=True, cmap='coolwarm')
-plt.title('Correlation Heatmap')
+sns.heatmap(df_corr.corr(numeric_only=True), annot=True, cmap='coolwarm')
+plt.title('Correlation Heatmap (Excluding Gross Margin)')
 plt.tight_layout()
 plt.show()
 
@@ -70,22 +70,6 @@ plt.title('Outliers in Total Amount')
 plt.tight_layout()
 plt.show()
 
-# 8 Hypothesis Testing: Compare Two Product Lines
-product_a = 'Electronic accessories'
-product_b = 'Food and beverages'
-
-sales_a = df[df['Product line'] == product_a]['Total']
-sales_b = df[df['Product line'] == product_b]['Total']
-
-z_stat, p_val = ztest(sales_a, sales_b, alternative='two-sided')
-print("Z-statistic:", z_stat)
-print("P-value:", p_val)
-
-alpha = 0.05
-if p_val < alpha:
-    print(f"Reject the null hypothesis: Average sales differ significantly between {product_a} and {product_b}.")
-else:
-    print(f"Fail to reject the null hypothesis: No significant difference in average sales between {product_a} and {product_b}.")
 
 
 
